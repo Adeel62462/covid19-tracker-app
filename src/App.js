@@ -2,28 +2,32 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 import Header from './components/Header';
 import Statistics from './components/Statistics';
-import { fetchData, fetchCountryData } from './api';
+import Chart from './components/Chart';
+import { fetchData } from './api';
+
 
 function App() {
   const [data, setData] = useState({});
+  const [countryName, setCountryName] = useState("");
 
   useEffect(() => {
     const fetchAPIData = async () => {
-      const response = await fetchData();
-      setData(response);      
+      setData(await fetchData());      
     }
     fetchAPIData();
   }, []);
 
   const onCountrySelected = async(country)=>{
-    const response = await fetchCountryData(country);
+    const response = await fetchData(country);
     setData(response);
+    setCountryName(country);
   }
 
   return (
-    <div>
-      <Header onCountrySelected={onCountrySelected}/>
-      <Statistics data={data}/>
+    <div className="container">
+      <Header onCountrySelected={onCountrySelected} />
+      <Statistics data={data} />
+      <Chart data={data} country={countryName}/>
     </div>
   );
 }

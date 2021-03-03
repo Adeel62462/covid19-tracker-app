@@ -9,6 +9,7 @@ import { fetchCountryData } from "../api/index";
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
+        width: "100%",
     },
     img: {
         width: "15%",
